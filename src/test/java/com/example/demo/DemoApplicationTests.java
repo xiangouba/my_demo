@@ -5,11 +5,13 @@ import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
 import com.example.demo.mapper.ReaderDataMapper;
+import com.example.demo.mapper.UserTableMapper;
+import com.example.demo.util.ExcelUtil;
 import com.example.demo.vo.ReaderData;
+import com.example.demo.vo.UserTable;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -20,6 +22,11 @@ import java.util.*;
 @SpringBootTest
 class DemoApplicationTests {
 
+    @Resource
+    private UserTableMapper userTableMapper;
+
+    @Autowired
+    private ExcelUtil excelUtil;
     @Resource
     private ReaderDataMapper readerDataMapper;
     @Test
@@ -32,34 +39,34 @@ class DemoApplicationTests {
     }
 
 
-    @Test
-    public void test1() {
-        //文件路径
-        String dataUrl = "C:\\Users\\rh\\Desktop\\demo\\demo.xlsx";
-        try {
-            //创建工作簿对象
-            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(dataUrl));
-            //获取工作簿下的工作表的个数
-            int sheetNum = xssfWorkbook.getNumberOfSheets();
-            //遍历工作簿中的所有数据
-            for (int i = 0; i < sheetNum; i++) {
-                //读取第一个工作表
-                XSSFSheet hssfSheet = xssfWorkbook.getSheetAt(i);
-                //获取最后一行
-                int maxRow = hssfSheet.getLastRowNum();
-                for (int j = 0; j <= maxRow; j++) {
-                    //获取每一行的最后数据所在的单元格
-                    int maxRol = hssfSheet.getRow(j).getLastCellNum();
-                    System.out.println("--------第" + j + "行的数据如下--------");
-                    for (int k = 0; k < maxRol; k++) {
-                        System.out.println(hssfSheet.getRow(j).getCell(k) + "  ");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Test
+//    public void test1() {
+//        //文件路径
+//        String dataUrl = "C:\\Users\\rh\\Desktop\\demo\\demo.xlsx";
+//        try {
+//            //创建工作簿对象
+//            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream(dataUrl));
+//            //获取工作簿下的工作表的个数
+//            int sheetNum = xssfWorkbook.getNumberOfSheets();
+//            //遍历工作簿中的所有数据
+//            for (int i = 0; i < sheetNum; i++) {
+//                //读取第一个工作表
+//                XSSFSheet hssfSheet = xssfWorkbook.getSheetAt(i);
+//                //获取最后一行
+//                int maxRow = hssfSheet.getLastRowNum();
+//                for (int j = 0; j <= maxRow; j++) {
+//                    //获取每一行的最后数据所在的单元格
+//                    int maxRol = hssfSheet.getRow(j).getLastCellNum();
+//                    System.out.println("--------第" + j + "行的数据如下--------");
+//                    for (int k = 0; k < maxRol; k++) {
+//                        System.out.println(hssfSheet.getRow(j).getCell(k) + "  ");
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 
     @Test
@@ -345,6 +352,13 @@ class DemoApplicationTests {
 
 
 
+    @Test
+    public void testExcel() throws IOException {
+        List<UserTable> userTables = userTableMapper.selectList(null);
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",userTables);
+        excelUtil.exportExcel("template.xlsx","C:\\Users\\rh\\Desktop\\demo\\demoTemplate.xlsx",map);
+    }
 
 
 }

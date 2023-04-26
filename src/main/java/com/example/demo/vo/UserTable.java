@@ -1,6 +1,5 @@
 package com.example.demo.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 * @TableName user_table
 */
 @Data
-public class UserTable implements Serializable {
+public class UserTable {
 
     /**
     * 主键id
