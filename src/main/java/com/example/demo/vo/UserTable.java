@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 * @TableName user_table
 */
 @Data
-public class UserTable {
+public class UserTable implements Serializable{
 
     /**
     * 主键id

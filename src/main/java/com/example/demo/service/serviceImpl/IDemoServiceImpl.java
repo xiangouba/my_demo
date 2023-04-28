@@ -6,12 +6,9 @@ import com.example.demo.mapper.UserTableMapper;
 import com.example.demo.service.IDemoService;
 import com.example.demo.vo.ReaderData;
 import com.example.demo.vo.UserTable;
-import org.springframework.security.config.core.userdetails.UserDetailsMapFactoryBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author gxx

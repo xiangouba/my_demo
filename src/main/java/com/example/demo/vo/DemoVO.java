@@ -1,6 +1,5 @@
 package com.example.demo.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 
