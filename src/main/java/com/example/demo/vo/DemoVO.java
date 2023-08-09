@@ -1,6 +1,7 @@
 package com.example.demo.vo;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -13,4 +14,7 @@ public class DemoVO {
     private String partnerCode;
     private String passTime;
     private String params;
+
+
+
 }

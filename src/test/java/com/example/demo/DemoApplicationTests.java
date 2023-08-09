@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.mapper.ReaderDataMapper;
 import com.example.demo.mapper.UserTableMapper;
 import com.example.demo.util.ExcelUtil;
@@ -17,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -350,13 +353,37 @@ class DemoApplicationTests {
     }
 
 
-
     @Test
     public void testExcel() throws IOException {
         List<UserTable> userTables = userTableMapper.selectList(null);
         Map<String,Object> map = new HashMap<>();
         map.put("data",userTables);
         excelUtil.exportExcel("template.xlsx","C:\\Users\\rh\\Desktop\\demo\\demoTemplate.xlsx",map);
+    }
+
+    @Test
+    public void test11(){
+        QueryWrapper<UserTable> wrapper = new QueryWrapper<>();
+        wrapper.ge("user_id",1);
+    }
+
+    public static void main(String[] args) {
+        ExecutorService fixedThreadPool = Executors. newFixedThreadPool(3);
+        for (int i =1; i<=5;i++){
+            final int index=i ;
+            fixedThreadPool.execute(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("第" +index + "个线程" +Thread.currentThread().getName());
+                        Thread.sleep(10000);
+                    }  catch(InterruptedException  e ) {
+                        e .printStackTrace();
+                    }
+                }
+
+            });
+        }
     }
 
 
