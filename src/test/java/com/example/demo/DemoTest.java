@@ -60,8 +60,6 @@ public class DemoTest {
         list.add("a");
         list.add("b");
         list.add("c");
-
-
         System.out.println(list.get(3).toString());
     }
 
