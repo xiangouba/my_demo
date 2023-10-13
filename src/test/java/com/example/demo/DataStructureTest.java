@@ -5,7 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @Author gxx
@@ -49,6 +51,7 @@ public class DataStructureTest {
         deque.push("i");
         deque.offerLast("j");
 
+        deque.poll();
         System.out.println("数据出栈：");
         while (!deque.isEmpty()){
             System.out.println(deque.pop());
@@ -68,5 +71,13 @@ public class DataStructureTest {
 
         elements[tail] = "e";
 
+    }
+
+    @Test
+    public void test_queue(){
+        Queue<String> linkedQueue = new LinkedBlockingQueue<>();
+//        linkedQueue.add("a");
+//        String a = linkedQueue.poll();
+        System.out.println("a:" + linkedQueue.poll());
     }
 }
